@@ -34,7 +34,7 @@ const products = getProductsBySubcategory('air-fresheners', subcategory as Subca
 
   {products.length > 0 ? (
     <div class="product-grid">
-      {products.filter(p => p.inStock).map((product) => (
+      {products.map((product) => (
         <ProductCard product={product} />
       ))}
     </div>
