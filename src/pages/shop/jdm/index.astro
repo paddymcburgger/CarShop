@@ -16,7 +16,7 @@ const products = getProductsByCategory('jdm');
   <h1 class="section-title">JDM ACCESSORIES</h1>
 
   <div class="product-grid">
-    {products.filter(p => p.inStock).map((product) => (
+    {products.map((product) => (
       <ProductCard product={product} />
     ))}
   </div>
