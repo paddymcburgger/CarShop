@@ -56,6 +56,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
 
+    <!-- Hidden form for Netlify Forms detection (required for JS submissions) -->
+    <form name="notify-me" netlify hidden>
+      <input type="email" name="email" />
+      <input type="text" name="product" />
+      <input type="text" name="slug" />
+    </form>
+
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-links">
