@@ -19,7 +19,7 @@ const products = getProductsByCategory('air-fresheners');
   <SubcategoryPills />
 
   <div class="product-grid">
-    {products.filter(p => p.inStock).map((product) => (
+    {products.map((product) => (
       <ProductCard product={product} />
     ))}
   </div>
