@@ -1,0 +1,26 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ProductCard from '../../../components/ProductCard.astro';
+import SubcategoryPills from '../../../components/SubcategoryPills.astro';
+import { getProductsByCategory } from '../../../data/products';
+
+const products = getProductsByCategory('air-fresheners');
+---
+
+<Layout title="Air Fresheners — Detailing Riga" description="Premium Japanese car air fresheners. Eikosha Air Spencer and more. Shipped from Riga, Latvia.">
+  <nav class="breadcrumb">
+    <a href="/shop/">Shop</a>
+    <span>/</span>
+    <span>Air Fresheners</span>
+  </nav>
+
+  <h1 class="section-title">AIR FRESHENERS</h1>
+
+  <SubcategoryPills />
+
+  <div class="product-grid">
+    {products.filter(p => p.inStock).map((product) => (
+      <ProductCard product={product} />
+    ))}
+  </div>
+</Layout>

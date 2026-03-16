@@ -1,0 +1,23 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ProductCard from '../../../components/ProductCard.astro';
+import { getProductsByCategory } from '../../../data/products';
+
+const products = getProductsByCategory('jdm');
+---
+
+<Layout title="JDM Accessories — Detailing Riga" description="Authentic Japanese Domestic Market accessories. Tsurikawa, fusa knots, and more. Shipped from Riga.">
+  <nav class="breadcrumb">
+    <a href="/shop/">Shop</a>
+    <span>/</span>
+    <span>JDM Accessories</span>
+  </nav>
+
+  <h1 class="section-title">JDM ACCESSORIES</h1>
+
+  <div class="product-grid">
+    {products.filter(p => p.inStock).map((product) => (
+      <ProductCard product={product} />
+    ))}
+  </div>
+</Layout>

@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Order Confirmed — Detailing Riga">
+  <div class="success-page">
+    <div class="success-icon">&#10003;</div>
+    <h1>THANK YOU</h1>
+    <p>Your order has been placed. A confirmation email is on its way.</p>
+    <a href="/shop/" class="btn" style="margin-top: 2rem;">Back to Shop</a>
+  </div>
+</Layout>
+
+<style>
+  .success-page {
+    text-align: center;
+    padding: 6rem 0;
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--success);
+    color: #fff;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+  }
+
+  .success-page h1 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+
+  .success-page p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+</style>

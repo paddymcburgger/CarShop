@@ -1,0 +1,44 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ProductCard from '../../../components/ProductCard.astro';
+import SubcategoryPills from '../../../components/SubcategoryPills.astro';
+import { getProductsBySubcategory, subcategories } from '../../../data/products';
+import type { Subcategory } from '../../../data/products';
+
+export function getStaticPaths() {
+  return Object.keys(subcategories).map((sub) => ({
+    params: { subcategory: sub },
+  }));
+}
+
+const { subcategory } = Astro.params;
+const subName = subcategories[subcategory as Subcategory];
+const products = getProductsBySubcategory('air-fresheners', subcategory as Subcategory);
+---
+
+<Layout
+  title={`${subName} Air Fresheners — Detailing Riga`}
+  description={`${subName} car air fresheners. Premium Japanese fragrances shipped from Riga.`}
+>
+  <nav class="breadcrumb">
+    <a href="/shop/">Shop</a>
+    <span>/</span>
+    <a href="/shop/air-fresheners/">Air Fresheners</a>
+    <span>/</span>
+    <span>{subName}</span>
+  </nav>
+
+  <h1 class="section-title">{subName.toUpperCase()} AIR FRESHENERS</h1>
+
+  <SubcategoryPills current={subcategory} />
+
+  {products.length > 0 ? (
+    <div class="product-grid">
+      {products.filter(p => p.inStock).map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+  ) : (
+    <p style="color: var(--text-muted); text-align: center; padding: 3rem 0;">No products in this category yet.</p>
+  )}
+</Layout>

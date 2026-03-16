@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CartView from '../../components/CartView.tsx';
+---
+
+<Layout title="Cart — Detailing Riga">
+  <nav class="breadcrumb">
+    <a href="/shop/">Shop</a>
+    <span>/</span>
+    <span>Cart</span>
+  </nav>
+
+  <h1 class="section-title">YOUR CART</h1>
+
+  <CartView client:load />
+</Layout>

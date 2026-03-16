@@ -1,0 +1,112 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { products, categories } from '../../data/products';
+---
+
+<Layout title="Shop — Detailing Riga" description="Premium JDM accessories and Japanese car air fresheners. Shipped from Riga.">
+  <!-- Hero -->
+  <section class="shop-hero">
+    <h1>DETAILING<span>SHOP</span></h1>
+    <p>Premium JDM accessories and Japanese car air fresheners.</p>
+  </section>
+
+  <!-- Category Cards -->
+  <section class="categories">
+    <a href="/shop/air-fresheners/" class="category-card">
+      <div class="category-icon">香</div>
+      <h2>Air Fresheners</h2>
+      <p>Premium Japanese car fragrances</p>
+    </a>
+    <a href="/shop/jdm/" class="category-card">
+      <div class="category-icon">JDM</div>
+      <h2>JDM Accessories</h2>
+      <p>Authentic Japanese car culture</p>
+    </a>
+  </section>
+
+  <!-- All Products -->
+  <section class="all-products">
+    <h2 class="section-title">ALL PRODUCTS</h2>
+    <div class="product-grid">
+      {products.filter(p => p.inStock).map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .shop-hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+
+  .shop-hero h1 {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  .shop-hero h1 span {
+    color: var(--accent);
+  }
+
+  .shop-hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+  }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--gap);
+    margin: 2rem 0 3rem;
+  }
+
+  .category-card {
+    padding: 2.5rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .category-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    color: var(--text);
+  }
+
+  .category-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .category-card h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .all-products {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .shop-hero h1 {
+      font-size: 2.8rem;
+    }
+  }
+</style>
