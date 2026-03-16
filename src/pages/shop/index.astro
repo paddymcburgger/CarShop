@@ -29,7 +29,7 @@ import { products, categories } from '../../data/products';
   <section class="all-products">
     <h2 class="section-title">ALL PRODUCTS</h2>
     <div class="product-grid">
-      {products.filter(p => p.inStock).map((product) => (
+      {products.map((product) => (
         <ProductCard product={product} />
       ))}
     </div>
