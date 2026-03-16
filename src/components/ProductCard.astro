@@ -14,11 +14,15 @@ const priceFormatted = (product.price / 100).toFixed(2);
     <div class="card-image-placeholder">
       <span>{product.name.charAt(0)}</span>
     </div>
-    {!product.inStock && <span class="out-of-stock-badge">Out of stock</span>}
   </div>
   <div class="card-body">
     <h3 class="card-title">{product.name}</h3>
-    <p class="card-price">&euro;{priceFormatted}</p>
+    <div class="card-bottom">
+      <p class="card-price">&euro;{priceFormatted}</p>
+      <span class={product.inStock ? 'card-stock in' : 'card-stock out'}>
+        {product.inStock ? 'In Stock' : 'Out of Stock'}
+      </span>
+    </div>
   </div>
 </a>
 
@@ -64,18 +68,6 @@ const priceFormatted = (product.price / 100).toFixed(2);
     opacity: 0.3;
   }
 
-  .out-of-stock-badge {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: rgba(0, 0, 0, 0.8);
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-  }
-
   .card-body {
     padding: 1rem;
   }
@@ -88,10 +80,30 @@ const priceFormatted = (product.price / 100).toFixed(2);
     margin-bottom: 0.5rem;
   }
 
+  .card-bottom {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
   .card-price {
     font-family: var(--font-display);
     font-size: 1.4rem;
     color: var(--accent);
     letter-spacing: 0.02em;
+  }
+
+  .card-stock {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .card-stock.in {
+    color: #2ecc71;
+  }
+
+  .card-stock.out {
+    color: var(--text-muted);
   }
 </style>
