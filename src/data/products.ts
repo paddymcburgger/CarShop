@@ -44,7 +44,7 @@ export const products: Product[] = [
     image: 'placeholder.jpg',
     category: 'air-fresheners',
     subcategory: 'fruity',
-    inStock: true,
+    inStock: false,
     stripePriceId: 'price_placeholder_1',
   },
   {
