@@ -7,24 +7,61 @@ interface Props {
 
 const { product } = Astro.props;
 const priceFormatted = (product.price / 100).toFixed(2);
+const productUrl = `/shop/product/${product.slug}/`;
 ---
 
-<a href={`/shop/product/${product.slug}/`} class="product-card">
-  <div class="card-image">
-    <div class="card-image-placeholder">
-      <span>{product.name.charAt(0)}</span>
+<div class="product-card">
+  <a href={productUrl} class="card-link">
+    <div class="card-image">
+      <div class="card-image-placeholder">
+        <span>{product.name.charAt(0)}</span>
+      </div>
     </div>
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">{product.name}</h3>
-    <div class="card-bottom">
-      <p class="card-price">&euro;{priceFormatted}</p>
-      <span class={product.inStock ? 'card-stock in' : 'card-stock out'}>
-        {product.inStock ? 'In Stock' : 'Out of Stock'}
-      </span>
+    <div class="card-info">
+      <h3 class="card-title">{product.name}</h3>
+      <div class="card-price-row">
+        <p class="card-price">&euro;{priceFormatted}</p>
+        <span class={product.inStock ? 'card-stock in' : 'card-stock out'}>
+          {product.inStock ? 'In Stock' : 'Out of Stock'}
+        </span>
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+  {product.inStock ? (
+    <button
+      class="card-btn add-to-cart-btn"
+      data-slug={product.slug}
+      data-price-id={product.stripePriceId}
+    >
+      Add to Cart
+    </button>
+  ) : (
+    <a href={productUrl} class="card-btn notify-btn">
+      Notify Me
+    </a>
+  )}
+</div>
+
+<script>
+  import { addToCart } from '../stores/cart';
+
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.add-to-cart-btn');
+    if (!btn) return;
+
+    const slug = btn.getAttribute('data-slug');
+    const priceId = btn.getAttribute('data-price-id');
+    if (!slug || !priceId) return;
+
+    addToCart(slug, priceId);
+    btn.textContent = 'Added!';
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.textContent = 'Add to Cart';
+      btn.classList.remove('added');
+    }, 1500);
+  });
+</script>
 
 <style>
   .product-card {
@@ -40,11 +77,20 @@ const priceFormatted = (product.price / 100).toFixed(2);
   .product-card:hover {
     border-color: var(--text-muted);
     transform: translateY(-2px);
+  }
+
+  .card-link {
+    display: flex;
+    flex-direction: column;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .card-link:hover {
     color: var(--text);
   }
 
   .card-image {
-    position: relative;
     aspect-ratio: 1;
     background: var(--bg-surface);
     display: flex;
@@ -68,7 +114,7 @@ const priceFormatted = (product.price / 100).toFixed(2);
     opacity: 0.3;
   }
 
-  .card-body {
+  .card-info {
     padding: 1rem;
   }
 
@@ -80,7 +126,7 @@ const priceFormatted = (product.price / 100).toFixed(2);
     margin-bottom: 0.5rem;
   }
 
-  .card-bottom {
+  .card-price-row {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -105,5 +151,47 @@ const priceFormatted = (product.price / 100).toFixed(2);
 
   .card-stock.out {
     color: var(--text-muted);
+  }
+
+  .card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    margin: 0 1rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+
+  .add-to-cart-btn {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .add-to-cart-btn:hover {
+    background: var(--accent-hover);
+  }
+
+  .add-to-cart-btn.added {
+    background: #2ecc71;
+  }
+
+  .notify-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .notify-btn:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
   }
 </style>
